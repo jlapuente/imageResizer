@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Image Resizer</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+  </head>
+  <body> 
+    <div id="row" style="width: 100%; height: 100%; display: table; " >
+      <div id="optionPanel">
+         <ul>
+           <li>Prueba</li>
+            <li>Prueba</li>
+          </ul>
+      </div>
+      <div id="dragPanelContainer" class="dragPanel" >
+        <div id="dragPanel" class="dragPanel">
+        <span id="dragText">Drag your images here</span>
+        </div>
+        <input id="uploadImageBtn" type="file" imageUpload (imageSelected)="selected($event)" [resizeOptions]="resizeOptions">
+      </div>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>

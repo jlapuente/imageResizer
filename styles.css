@@ -1,0 +1,39 @@
+html, body {
+    height: 100%;
+    padding: 0; margin: 0;
+    font-family: 'Open Sans', sans-serif;
+  }
+#dragPanelContainer{
+    display: table-cell;
+    width: 70%;
+    height: 100%;
+  }
+#optionPanel{
+    width: 30%; 
+    height: 100%; 
+    display: table-cell;
+    background-color: #F5F6F8;
+}
+#dragPanel{
+  border: gray; 
+  border-style: dotted; 
+  margin:3%;
+  height: 90%;
+}
+
+#dragText{
+  position: relative;
+  top: 47%;
+  left: 30%;
+  right: 30%;
+  font-size: 18pt;
+}
+
+#dragPanel:hover{
+  background-color: #F1F1F1;
+  -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+  transition: width 2s;
+}
+#uploadImageBtn{
+ margin-left: 3%
+}

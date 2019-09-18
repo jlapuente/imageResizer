@@ -1,0 +1,22 @@
+{
+  "name": "image-resizer",
+  "version": "1.0.0",
+  "description": "A minimal Electron application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/jlapuente/imageResizer",
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "jlapuente",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^6.0.9"
+  }
+}
