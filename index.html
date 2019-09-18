@@ -10,16 +10,25 @@
   <body> 
     <div id="row" style="width: 100%; height: 100%; display: table; " >
       <div id="optionPanel">
-         <ul>
-           <li>Prueba</li>
-            <li>Prueba</li>
-          </ul>
+         <div id="options">
+          <div id="heightPanel">
+              <span class="optionLabel">Altura:</span> <input class="valueInput" id="heightValue" type="number">
+              <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+          </div>
+          <div id="widthPanel">
+            <span class="optionLabel">Anchura:</span> <input class="valueInput" id="widthValue" type="number">
+            <input type="range" min="1" max="100" value="50" class="slider" id="widthRange">
+        </div>
+         </div>
+         <div id="downloadPanel">
+
+         </div>
       </div>
       <div id="dragPanelContainer" class="dragPanel" >
         <div id="dragPanel" class="dragPanel">
         <span id="dragText">Drag your images here</span>
         </div>
-        <input id="uploadImageBtn" type="file" imageUpload (imageSelected)="selected($event)" [resizeOptions]="resizeOptions">
+        <output id="list"></output>
       </div>
     </div>
   </body>
