@@ -5,6 +5,7 @@
     <title>Image Resizer</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="node_modules/@fortawesome/fontawesome-free/css/all.css" rel="stylesheet">
   </head>
   <body> 
     <div id="row" style="width: 100%; height: 100%; display: table; " >
@@ -20,12 +21,13 @@
         </div>
          </div>
          <div id="downloadPanel">
-            <button id="changeSizeBtn">Change Size</button>
-            <a id="hiddenDownloadButton" hidden></a>
+          <i class="fas fa-print"></i>
          </div>
       </div>
       <div id="dragPanelContainer" class="dragPanel" >
         <div id="dragPanel" class="dragPanel">
+        <div id="loader"style="display: none"></div>
+        <div id="myDiv" class="animate-bottom" style="display: none">Operation completed suscesfully</div>
         <span id="dragText">Drag your images here</span>
         </div>
         <output id="list"></output>

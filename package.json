@@ -17,9 +17,11 @@
   "author": "jlapuente",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^6.0.9"
+    "electron": "^6.0.9",
+    "electron-packager": "^14.0.6"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.1",
     "file-saver": "^2.0.2"
   }
 }

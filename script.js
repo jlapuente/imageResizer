@@ -2,7 +2,7 @@ let fileSaver = require('file-saver/src/FileSaver');
 
 var sliderWidth = document.getElementById("widthRange");
 var outputWidth = document.getElementById("widthValue");
-var changeSizeBtn = document.getElementById("changeSizeBtn");
+
 // Setup the dnd listeners.
 var dropZone = document.getElementById('dragPanel');
 dropZone.addEventListener('dragover', handleDragOver, false);
@@ -13,10 +13,9 @@ var output = document.getElementById("heightValue");
 
 let img = new Image();
 var fileName = "";
-var selectedWidth = document.getElementById("widthValue")
+var selectedWidth = document.getElementById("widthValue");
 var selectedHeight = document.getElementById("heightValue");
 
-let generatedBlob = new Blob;
 (function () {
     var holder = document.getElementById('dragPanel');
     holder.ondragover = () => {
@@ -47,8 +46,10 @@ function handleFileSelect(evt) {
     evt.stopPropagation();
     evt.preventDefault();
 
+    var height = selectedHeight.value * 37.795275591;
+    var width = selectedWidth.value * 37.795275591;
     var files = evt.dataTransfer.files; // FileList object.
-
+    document.getElementById("loader").style.display = "block";
     var output = [];
     for (var i = 0, f; f = files[i]; i++) {
 
@@ -68,11 +69,11 @@ function handleFileSelect(evt) {
                 img.src = e.target.result;
                 img.onload = () => {
                     const elem = document.createElement('canvas');
-                    elem.width = selectedWidth.value;
-                    elem.height = selectedHeight.value;
+                    elem.width = width;
+                    elem.height = height;
                     const ctx = elem.getContext('2d');
                     // img.width and img.height will contain the original dimensions
-                    ctx.drawImage(img, 0, 0, selectedWidth.value, selectedHeight.value);
+                    ctx.drawImage(img, 0, 0, width, height);
                     ctx.canvas.toBlob((blob) => {
                         fileSaver.saveAs(blob, "fotoCambiada");
                         const file = new File([blob], fileName, {
@@ -87,6 +88,8 @@ function handleFileSelect(evt) {
         // Read in the image file as a data URL.
         reader.readAsDataURL(f);
     }
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("myDiv").style.display = "block";
 }
 
 document.getElementById('dragPanel').addEventListener('change', handleFileSelect, false);
@@ -125,8 +128,8 @@ changeSizeBtn.onclick = function () {
     const elem = document.createElement('canvas');
     const mime = "image/png";
     const quality = 1;
-    elem.width = selectedWidth.value;
-    elem.height = selectedHeight.value;
+    elem.width = width;
+    elem.height = height;
     const ctx = elem.getContext('2d');
     ctx.drawImage(img, 0, 0, selectedWidth, selectedHeight);
     //const data = ctx.canvas.toDataURL(img, mime, quality);
@@ -143,7 +146,7 @@ changeSizeBtn.onclick = function () {
         a.href = url;
         a.download = fileName;
         a.click();
-        window.URL.revokeObjectURL(url);*/
+        window.URL.revokeObjectURL(url);
     }, mime, quality);
     fileSaver.saveAs(generatedBlob, "fotoCambiada");
 }
@@ -158,4 +161,5 @@ function saveBlob(blob) {
       }
   }
   reader.readAsArrayBuffer(blob)
-}*/
+}
+*/
