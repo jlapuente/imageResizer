@@ -1,3 +1,19 @@
+var sliderWidth = document.getElementById("widthRange");
+var outputWidth = document.getElementById("widthValue");
+var changeSizeBtn = document.getElementById("changeSizeBtn");
+// Setup the dnd listeners.
+var dropZone = document.getElementById('dragPanel');
+dropZone.addEventListener('dragover', handleDragOver, false);
+dropZone.addEventListener('drop', handleFileSelect, false);
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("heightValue");
+
+const img = new Image();
+var fileName = "";
+var selectedWidth = document.getElementById("widthValue")
+var selectedHeight = document.getElementById("heightValue");
+
 (function () {
     var holder = document.getElementById('dragPanel');
     console.log(document.getElementById('dragPanel'));
@@ -18,6 +34,7 @@
 
         for (let f of e.dataTransfer.files) {
             console.log('File(s) you dragged here: ', f)
+            fileName = f.name;
         }
         
         return false;
@@ -30,9 +47,9 @@ function handleFileSelect(evt) {
 
     var files = evt.dataTransfer.files; // FileList object.
 
-    // files is a FileList of File objects. List some properties.
     var output = [];
     for (var i = 0, f; f = files[i]; i++) {
+      
         if (!f.type.match('image.*')) {
             continue;
         }
@@ -41,11 +58,12 @@ function handleFileSelect(evt) {
         // Closure to capture the file information.
         reader.onload = (function(theFile) {
           return function(e) {
-            // Render thumbnail.  
+            // Render image  
             var dropZone = document.getElementById('dragPanel');
             dropZone.style.backgroundImage = "url(" + e.target.result + ")";//e.target.result;
             var dragText = document.getElementById("dragText");
             dragText.innerHTML = "";
+            img.src = e.target.result;
           };
         })(f);
   
@@ -62,13 +80,6 @@ function handleFileSelect(evt) {
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
   }
 
-  // Setup the dnd listeners.
-  var dropZone = document.getElementById('dragPanel');
-  dropZone.addEventListener('dragover', handleDragOver, false);
-  dropZone.addEventListener('drop', handleFileSelect, false);
-
-var slider = document.getElementById("myRange");
-var output = document.getElementById("heightValue");
 output.value = slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
@@ -80,8 +91,7 @@ output.oninput = function(){
     slider.value = this.value;
 }
 
-var sliderWidth = document.getElementById("widthRange");
-var outputWidth = document.getElementById("widthValue");
+
 outputWidth.value = sliderWidth.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
@@ -92,3 +102,40 @@ sliderWidth.oninput = function() {
 outputWidth.oninput = function(){
     sliderWidth.value = this.value;
 }
+
+
+changeSizeBtn.onclick = function(){
+  const elem = document.createElement('canvas');
+  const mime = "octet/stream";
+  const quality = 1;
+  elem.width = selectedWidth.value;
+  elem.height = selectedHeight.value;
+  const ctx = elem.getContext('2d');
+  ctx.drawImage(img, 0, 0, selectedWidth, selectedHeight);
+  const data = ctx.canvas.toDataURL(img, mime, quality);
+  ctx.canvas.toBlob((blob) => {
+    console.log(blob); //output image as a blob
+    const file = new File([blob], fileName, {
+        type: mime,
+        lastModified: Date.now()
+    });
+        var a = document.getElementById('hiddenDownloadButton');
+        url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+}, mime, quality);
+}
+/*
+function saveBlob(blob) {
+  let reader = new FileReader()
+  reader.onload = function() {
+      if (reader.readyState == 2) {
+          var buffer = new Buffer(reader.result)
+          ipcRenderer.send(SAVE_FILE, fileName, buffer)
+          console.log(`Saving ${JSON.stringify({ fileName, size: blob.size })}`)
+      }
+  }
+  reader.readAsArrayBuffer(blob)
+}*/
